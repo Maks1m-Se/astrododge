@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://cve26v466e6d8"]
+
+[ext_resource type="Script" uid="uid://dm1ha4so0km42" path="res://scripts/ship.gd" id="1_ai6ab"]
+
+[node name="Ship" type="RigidBody2D"]
+continuous_cd = 1
+linear_damp = 0.1
+angular_damp = 0.1
+script = ExtResource("1_ai6ab")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.654902, 0.878431, 1, 1)
+polygon = PackedVector2Array(16, 0, -10, -8, -10, 8)
+uv = PackedVector2Array(785.284, 181.712, 950.328, 212.769, 797.707, 284.643)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(16, 0, -10, 8, -10, -8)
