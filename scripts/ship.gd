@@ -190,6 +190,44 @@ func _physics_process(delta: float) -> void:
 		
 	_update_thruster_audio(delta, thrusting, turning_left, turning_right)
 	
+	# --- Thruster VFX live scaling ---
+	# Smooth side thruster intensity 0..1 (main uses 'thrust_level' from _update_thruster_audio)
+	_side_left_level  = move_toward(_side_left_level,  (1.0 if turning_left  else 0.0),  delta * 10.0)
+	_side_right_level = move_toward(_side_right_level, (1.0 if turning_right else 0.0),  delta * 10.0)
+
+	# Size ranges (from Inspector)
+	var main_min: float = vfx_main_dyn_range.x
+	var main_max: float = vfx_main_dyn_range.y
+	var side_min: float = vfx_side_dyn_range.x
+	var side_max: float = vfx_side_dyn_range.y
+
+	# Compute per-frame dynamic size factors
+	var main_dyn: float   = lerpf(main_min, main_max, thrust_level)
+	var side_dyn_l: float = lerpf(side_min, side_max, _side_left_level)
+	var side_dyn_r: float = lerpf(side_min, side_max, _side_right_level)
+
+	# Apply: base_scale × variant_scale × live_scale
+	if is_instance_valid(vfx_main):
+		vfx_main.scale  = _vfx_base_main_scale  * _vfx_variant_scale * main_dyn
+	if is_instance_valid(vfx_left):
+		vfx_left.scale  = _vfx_base_left_scale  * _vfx_variant_scale * side_dyn_l
+	if is_instance_valid(vfx_right):
+		vfx_right.scale = _vfx_base_right_scale * _vfx_variant_scale * side_dyn_r
+
+	# Optional: stretch jets by speed (length/tempo feel)
+	var sp_main_min: float = vfx_speed_main_range.x
+	var sp_main_max: float = vfx_speed_main_range.y
+	var sp_side_min: float = vfx_speed_side_range.x
+	var sp_side_max: float = vfx_speed_side_range.y
+
+	if is_instance_valid(vfx_main):
+		vfx_main.speed_scale  = lerpf(sp_main_min, sp_main_max, thrust_level)
+	if is_instance_valid(vfx_left):
+		vfx_left.speed_scale  = lerpf(sp_side_min, sp_side_max, _side_left_level)
+	if is_instance_valid(vfx_right):
+		vfx_right.speed_scale = lerpf(sp_side_min, sp_side_max, _side_right_level)
+
+	
 	
 	
 func _update_thruster_audio(delta: float, thrusting: bool, left: bool, right: bool) -> void:
@@ -277,6 +315,17 @@ func _apply_config(cfg: ShipConfig) -> void:
 
 	# Collision scale from cached base values
 	_apply_collider_scale(cfg.scale)
+	
+	# --- Variant plume factor: from thrust ratio × per-ship multiplier, clamped ---
+	var ref: float = maxf(1.0, vfx_ref_thrust)  # avoid divide-by-zero
+	var ratio: float = cfg.thrust_force / ref
+	_vfx_variant_scale = clampf(ratio * cfg.vfx_plume_mult, vfx_variant_min, vfx_variant_max)
+
+	# (Optional debug)
+	sdbg("VFX", "variant plume scale=%.2f  (ratio=%.2f, mult=%.2f, clamps=[%.2f..%.2f])"
+		% [_vfx_variant_scale, ratio, cfg.vfx_plume_mult, vfx_variant_min, vfx_variant_max])
+
+
 	
 	if is_instance_valid(col_poly):
 		sdbg("COL", "poly points=%d  first=%s  scale=%.2f"
