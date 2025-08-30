@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ShipConfig" load_steps=2 format=3 uid="uid://l03nf30q4mr5"]
+
+[ext_resource type="Script" uid="uid://cx36bvamevyju" path="res://scripts/data/ship_config.gd" id="1_nqhrf"]
+
+[resource]
+script = ExtResource("1_nqhrf")
+id = "bulwark"
+display_name = "Bulwark"
+description = "A flying wall. Slow, tough, and relentless."
+max_health = 180.0
+mass = 3.01
+scale = 2.0
+thrust_force = 950.0
+torque_strength = 2000.0
+linear_damp = 0.18
+angular_damp = 0.16
+sfx_pitch = 0.9
+vfx_brightness = 1.15
+vfx_plume_mult = 1.25
+metadata/_custom_type_script = "uid://cx36bvamevyju"

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ShipConfig" load_steps=2 format=3 uid="uid://c64d7qk2rxncf"]
+
+[ext_resource type="Script" uid="uid://cx36bvamevyju" path="res://scripts/data/ship_config.gd" id="1_83ma5"]
+
+[resource]
+script = ExtResource("1_83ma5")
+id = "phantom"
+display_name = "Phantom"
+description = "Stealthy and elusive, dances around enemies."
+max_health = 65.0
+mass = 0.9
+scale = 0.98
+thrust_force = 880.0
+torque_strength = 720.0
+linear_damp = 0.08
+angular_damp = 0.06
+sfx_pitch = 1.08
+vfx_brightness = 1.10
+vfx_plume_mult = 0.95
+metadata/_custom_type_script = "uid://cx36bvamevyju"

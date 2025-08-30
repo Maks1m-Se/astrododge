@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://c04fa2ffhcwy8"]
+[gd_scene load_steps=9 format=3 uid="uid://c04fa2ffhcwy8"]
 
 [ext_resource type="Script" uid="uid://b3y6upwbd2743" path="res://scripts/main.gd" id="1_0bbpv"]
 [ext_resource type="PackedScene" uid="uid://cve26v466e6d8" path="res://scenes/Ship.tscn" id="1_elqb8"]
 [ext_resource type="Script" uid="uid://vh3hro817os4" path="res://scripts/camera_2d.gd" id="2_rvslj"]
+[ext_resource type="Script" uid="uid://gbss3lycukai" path="res://scripts/health_bar.gd" id="4_nxtc6"]
 [ext_resource type="Script" uid="uid://c2dqb00kpk75l" path="res://scripts/edge_marker.gd" id="4_rarhs"]
 [ext_resource type="AudioStream" uid="uid://b8al5i0n4nb6s" path="res://audio/sfx/ui/alarm_pulse.ogg" id="5_c01mt"]
 [ext_resource type="Script" uid="uid://bh1t28rlxkiev" path="res://scripts/game_music.gd" id="6_c01mt"]
@@ -44,8 +45,11 @@ layout_mode = 1
 anchor_left = 0.03
 anchor_right = 0.1
 offset_top = 16.0
-offset_right = 320.0
+offset_right = 310.4
 offset_bottom = 22.0
+script = ExtResource("4_nxtc6")
+px_per_hp = 4.0
+max_full_width = 8000.0
 
 [node name="Track" type="ColorRect" parent="HUD/HUDRoot/HealthBar"]
 layout_mode = 1

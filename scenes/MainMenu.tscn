@@ -11,17 +11,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0ykhv")
-ship_configs = null
-game_scene_path = null
 intro_fade_in = 0.1
 xfade_intro_to_pad = 8.0
 pad_xfade = 8.0
-intro_target_db = null
-pad_target_db = null
-leave_menu_fade = null
-debug_music = null
-debug_audio_peaks = null
-debug_audio_poll = null
 
 [node name="Centerer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -71,10 +63,18 @@ visible = true
 transparent = false
 
 [node name="SettingsBox" type="VBoxContainer" parent="SettingsPopup"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 416.0
 offset_bottom = 413.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
 
 [node name="TitleSettings" type="Label" parent="SettingsPopup/SettingsBox"]
 layout_mode = 2
@@ -100,20 +100,17 @@ layout_mode = 2
 
 [node name="ShipDesc" type="Label" parent="SettingsPopup/SettingsBox"]
 layout_mode = 2
-text = "Ship Description"
+text = "Ship Description
+
+"
 horizontal_alignment = 1
-autowrap_mode = 2
 
 [node name="PlaceholerLabel" type="Label" parent="SettingsPopup/SettingsBox"]
 layout_mode = 2
 text = "
-Easy
-Medium
-Hard
+DIFFICULTY
 
-
-Music ON
-Sound ON"
+SOUND"
 horizontal_alignment = 1
 
 [node name="CloseSettingsBtn" type="Button" parent="SettingsPopup/SettingsBox"]

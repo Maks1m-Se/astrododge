@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ShipConfig" load_steps=2 format=3 uid="uid://b3mgcftqal8nr"]
+
+[ext_resource type="Script" uid="uid://cx36bvamevyju" path="res://scripts/data/ship_config.gd" id="1_nbnf1"]
+
+[resource]
+script = ExtResource("1_nbnf1")
+id = "needle"
+display_name = "Needle"
+description = "Lightning fast, fragile, and hard-hitting."
+max_health = 50.0
+mass = 0.8
+scale = 0.8
+thrust_force = 1100.0
+torque_strength = 650.0
+linear_damp = 0.08
+angular_damp = 0.08
+sfx_pitch = 1.1
+vfx_brightness = 1.05
+vfx_plume_mult = 0.95
+metadata/_custom_type_script = "uid://cx36bvamevyju"

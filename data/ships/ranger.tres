@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ShipConfig" load_steps=2 format=3 uid="uid://bgxvt5r0cejas"]
+
+[ext_resource type="Script" uid="uid://cx36bvamevyju" path="res://scripts/data/ship_config.gd" id="1_nbj75"]
+
+[resource]
+script = ExtResource("1_nbj75")
+id = "ranger"
+display_name = "Ranger"
+description = "Reliable and versatile, suited for any mission."
+max_health = 80.0
+mass = 1.0
+scale = 1.0
+thrust_force = 900.0
+torque_strength = 460.0
+linear_damp = 0.12
+angular_damp = 0.12
+sfx_pitch = 1.00
+vfx_brightness = 1.00
+vfx_plume_mult = 1.00
+metadata/_custom_type_script = "uid://cx36bvamevyju"

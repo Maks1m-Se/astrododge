@@ -16,8 +16,9 @@ const MeteorScene: PackedScene = preload("res://scenes/Meteor.tscn")
 @onready var edge_r: ColorRect       = $HUD/HUDRoot/EdgeRight
 @onready var oob_label: Label        = $HUD/HUDRoot/OOBLabel
 @onready var marker: Control         = $HUD/HUDRoot/EdgeMarker
-@onready var hb_track: ColorRect = $HUD/HUDRoot/HealthBar/Track
-@onready var hb_fill:  ColorRect = $HUD/HUDRoot/HealthBar/Fill
+@onready var health_bar: HealthBar = $HUD/HUDRoot/HealthBar
+
+
 
 
 var rng := RandomNumberGenerator.new()
@@ -34,25 +35,31 @@ func _ready() -> void:
 	rng.randomize()
 	spawn_timer.timeout.connect(_spawn_meteor)
 	_set_oob_visible(false)
-	# make sure marker has a size & is on top even if inspector values are missing
-	# DEBUG: show the marker immediately so we can see it
-	#marker.visible = true
-	#marker.position = Vector2(20, 20)
+
+	# Marker setup (unchanged)
 	marker.size = Vector2(24, 24)
 	marker.custom_minimum_size = Vector2(24, 24)
 	marker.z_index = 100
 	marker.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	print("EdgeMarker path OK? ", is_instance_valid(marker), " size=", marker.size, " vis=", marker.visible)
-	ship.health_changed.connect(_on_ship_health_changed)
-	ship.died.connect(_on_ship_died)
-	# Initialize bar on start:
-	_on_ship_health_changed(ship.health, ship.max_health)
-	# Apply selected ship config from Settings
+
+	# 1) Apply selected ship config FIRST
 	var path: String = Settings.get_selected_ship_path()
 	if ResourceLoader.exists(path):
 		var cfg := load(path) as ShipConfig
 		if cfg and ship.has_method("set_config"):
 			ship.set_config(cfg)
+
+	# 2) Now initialize the health bar from the ship (capacity + current)
+	if is_instance_valid(health_bar):
+		health_bar.set_capacity(ship.max_health)
+		health_bar.set_value(ship.health)
+
+	# 3) Connect health signals (guard against double-connecting)
+	if not ship.health_changed.is_connected(_on_ship_health_changed):
+		ship.health_changed.connect(_on_ship_health_changed)
+	if not ship.died.is_connected(_on_ship_died):
+		ship.died.connect(_on_ship_died)
 
 
 
@@ -236,20 +243,26 @@ func _beep() -> void:
 		alarm.play()
 
 func _on_ship_health_changed(cur: float, maxv: float) -> void:
-	# ratio 0..1
+	if not is_instance_valid(health_bar):
+		return
+
+	# Keep capacity in sync and update the value
+	health_bar.set_capacity(maxv)
+	health_bar.set_value(cur)
+
+	# Optional: keep your pleasant color ramp
 	var t: float = (cur / maxv) if maxv > 0.0 else 0.0
-	t = clamp(t, 0.0, 1.0)
+	t = clampf(t, 0.0, 1.0)
+	var healthy := Color(0.65, 0.87, 1.0)
+	var danger  := Color(1.00, 0.36, 0.40)
+	var mid     := Color(0.96, 0.74, 0.38)
+	var col     := healthy.lerp(mid, 1.0 - pow(t, 1.2)).lerp(danger, 1.0 - t)
 
-	# width → % of Track width
-	hb_fill.size.x = hb_track.size.x * t
+	# Write to the bar's Fill node
+	var fill := health_bar.get_node_or_null("Fill") as ColorRect
+	if fill:
+		fill.color = col
 
-	# pleasant color ramp (aqua → amber → red), still within your palette vibe
-	var healthy := Color(0.65, 0.87, 1)   # ~#6ED8AA
-	var danger  := Color(1.00, 0.36, 0.40)   # ~edge pulse red
-	# add a gentle mid bump for clarity
-	var mid := Color(0.96, 0.74, 0.38)
-	var col := healthy.lerp(mid, 1.0 - pow(t, 1.2)).lerp(danger, 1.0 - t)
-	hb_fill.color = col
 
 func _on_ship_died() -> void:
 	# For now, just print; in the next step we’ll show Game Over overlay.

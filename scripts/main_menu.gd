@@ -22,8 +22,10 @@ extends Control
 
 
 @export var ship_configs: Array[String] = [
-	"res://data/ships/scout.tres",
-	"res://data/ships/heavy.tres"
+	"res://data/ships/ranger.tres",
+	"res://data/ships/phantom.tres",
+	"res://data/ships/needle.tres",
+	"res://data/ships/bulwark.tres",
 ]
 
 
@@ -335,7 +337,7 @@ func _populate_ship_selector() -> void:
 func _update_ship_desc_from_path(path: String) -> void:
 	var cfg := load(path) as ShipConfig
 	if cfg:
-		ship_desc.text = "%s\nHP %.0f • Mass %.2f • Thrust %.0f • Torque %.0f" % [
+		ship_desc.text = "%s\nHP %.0f\nMass %.2f\nThrust %.0f\nTorque %.0f" % [
 			cfg.description, cfg.max_health, cfg.mass, cfg.thrust_force, cfg.torque_strength
 		]
 
