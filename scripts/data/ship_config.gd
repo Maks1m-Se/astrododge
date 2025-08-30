@@ -7,7 +7,7 @@ class_name ShipConfig
 
 # Core stats
 @export_range(1.0, 500.0, 1.0) var max_health: float = 60.0
-@export_range(0.1, 20.0, 0.1)  var mass: float = 1.0
+@export_range(0.01, 20.0, 0.1)  var mass: float = 1.0
 @export_range(0.25, 2.0, 0.01) var scale: float = 1.0
 
 # Handling
@@ -19,3 +19,5 @@ class_name ShipConfig
 # A/V flavor
 @export_range(0.25, 2.0, 0.01)   var sfx_pitch: float = 1.00
 @export_range(0.25, 2.0, 0.01)   var vfx_brightness: float = 1.00
+
+@export var vfx_plume_mult: float = 1.0  # visual plume size multiplier (independent of thrust)

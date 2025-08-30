@@ -50,6 +50,18 @@ var _side_right_level := 0.0
 @export_range(0.0, 5.0, 0.05) var linear_damp_playfeel: float = 0.1
 @export_range(0.0, 5.0, 0.05) var angular_damp_playfeel: float = 0.1
 
+# --- VFX scaling knobs (Inspector) ---
+@export var vfx_ref_thrust: float = 900.0                      # baseline thrust to compare variants
+@export_range(0.2, 3.0, 0.05) var vfx_variant_min: float = 0.6 # clamp variant factor
+@export_range(0.2, 3.0, 0.05) var vfx_variant_max: float = 1.8
+
+@export var vfx_main_dyn_range: Vector2 = Vector2(0.70, 1.35)  # live size range (idle → full) for main
+@export var vfx_side_dyn_range: Vector2 = Vector2(0.70, 1.15)  # live size range for side jets
+
+@export var vfx_speed_main_range: Vector2 = Vector2(0.85, 1.30) # optional “longer jet” feel
+@export var vfx_speed_side_range: Vector2 = Vector2(0.85, 1.15)
+
+
 # --- Light base so Heavy can brighten a bit ---
 @export var base_light_energy: float = 1.4
 var _light_base := 1.4
