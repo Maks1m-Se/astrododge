@@ -33,6 +33,15 @@ var _base_capsule_height: float = 0.0
 
 var thrust_level := 0.0 # smoothed 0..1
 
+# --- VFX scaling ---
+var _vfx_base_main_scale := Vector2.ONE
+var _vfx_base_left_scale := Vector2.ONE
+var _vfx_base_right_scale := Vector2.ONE
+var _vfx_variant_scale := 1.0
+
+# Smooth side thruster intensity (0..1)
+var _side_left_level := 0.0
+var _side_right_level := 0.0
 
 
 # --- Tunables (export to tweak in editor) ---
@@ -90,6 +99,17 @@ func _ready() -> void:
 	if vfx_main:  vfx_main.emitting = false
 	if vfx_left:  vfx_left.emitting = false
 	if vfx_right: vfx_right.emitting = false
+	
+	# Cache original particle scales so we scale relative to your authored size
+	if vfx_main:  _vfx_base_main_scale  = vfx_main.scale
+	if vfx_left:  _vfx_base_left_scale  = vfx_left.scale
+	if vfx_right: _vfx_base_right_scale = vfx_right.scale
+
+	# Ensure particles start off (okay if you already had this)
+	if vfx_main:  vfx_main.emitting = false
+	if vfx_left:  vfx_left.emitting = false
+	if vfx_right: vfx_right.emitting = false
+
 
 
 
