@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ShipConfig" load_steps=2 format=3 uid="uid://dbtrytvyuavfh"]
+
+[ext_resource type="Script" uid="uid://cx36bvamevyju" path="res://scripts/data/ship_config.gd" id="1_iwsrb"]
+
+[resource]
+script = ExtResource("1_iwsrb")
+id = "scout"
+display_name = "Scout"
+description = "Small, agile, low health."
+max_health = 60.0
+mass = 1.0
+scale = 1.0
+thrust_force = 900.0
+torque_strength = 450.0
+linear_damp = 0.1
+angular_damp = 0.1
+sfx_pitch = 1.05
+vfx_brightness = 1.0
+metadata/_custom_type_script = "uid://cx36bvamevyju"

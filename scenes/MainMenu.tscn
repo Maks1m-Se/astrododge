@@ -1,0 +1,135 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuvrta8uo8b8o"]
+
+[ext_resource type="Script" uid="uid://bbpcfpjwdlpy4" path="res://scripts/main_menu.gd" id="1_0ykhv"]
+[ext_resource type="AudioStream" uid="uid://d3b0veqpjb3cr" path="res://audio/sfx/ui/button_press.ogg" id="1_yqorp"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0ykhv")
+ship_configs = null
+game_scene_path = null
+intro_fade_in = 0.1
+xfade_intro_to_pad = 8.0
+pad_xfade = 8.0
+intro_target_db = null
+pad_target_db = null
+leave_menu_fade = null
+debug_music = null
+debug_audio_peaks = null
+debug_audio_poll = null
+
+[node name="Centerer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuBox" type="VBoxContainer" parent="Centerer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Centerer/MenuBox"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 50
+text = "Astro Dodge"
+
+[node name="Subtitle" type="Label" parent="Centerer/MenuBox"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 25
+text = "Minimalist space dodger"
+
+[node name="Gap" type="Control" parent="Centerer/MenuBox"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="PlayBtn" type="Button" parent="Centerer/MenuBox"]
+layout_mode = 2
+text = "PLAY"
+
+[node name="SettingsBtn" type="Button" parent="Centerer/MenuBox"]
+layout_mode = 2
+text = "SETTINGS"
+
+[node name="QuitBtn" type="Button" parent="Centerer/MenuBox"]
+layout_mode = 2
+text = "QUIT"
+
+[node name="SettingsPopup" type="PopupPanel" parent="."]
+transparent_bg = false
+size = Vector2i(420, 417)
+visible = true
+transparent = false
+
+[node name="SettingsBox" type="VBoxContainer" parent="SettingsPopup"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 416.0
+offset_bottom = 413.0
+
+[node name="TitleSettings" type="Label" parent="SettingsPopup/SettingsBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "SETTINGS
+"
+horizontal_alignment = 1
+
+[node name="GapSettings" type="Control" parent="SettingsPopup/SettingsBox"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="ShipRow" type="HBoxContainer" parent="SettingsPopup/SettingsBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="ShipLabel" type="Label" parent="SettingsPopup/SettingsBox/ShipRow"]
+layout_mode = 2
+text = "SHIP TYPE"
+
+[node name="ShipSelect" type="OptionButton" parent="SettingsPopup/SettingsBox/ShipRow"]
+layout_mode = 2
+
+[node name="ShipDesc" type="Label" parent="SettingsPopup/SettingsBox"]
+layout_mode = 2
+text = "Ship Description"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="PlaceholerLabel" type="Label" parent="SettingsPopup/SettingsBox"]
+layout_mode = 2
+text = "
+Easy
+Medium
+Hard
+
+
+Music ON
+Sound ON"
+horizontal_alignment = 1
+
+[node name="CloseSettingsBtn" type="Button" parent="SettingsPopup/SettingsBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+text = "CLOSE"
+
+[node name="UIClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_yqorp")
+bus = &"UI"
+
+[node name="Music" type="Node" parent="."]
+
+[node name="Intro" type="AudioStreamPlayer" parent="Music"]
+
+[node name="PadA" type="AudioStreamPlayer" parent="Music"]
+
+[node name="PadB" type="AudioStreamPlayer" parent="Music"]

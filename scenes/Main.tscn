@@ -1,9 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://c04fa2ffhcwy8"]
+[gd_scene load_steps=8 format=3 uid="uid://c04fa2ffhcwy8"]
 
+[ext_resource type="Script" uid="uid://b3y6upwbd2743" path="res://scripts/main.gd" id="1_0bbpv"]
 [ext_resource type="PackedScene" uid="uid://cve26v466e6d8" path="res://scenes/Ship.tscn" id="1_elqb8"]
 [ext_resource type="Script" uid="uid://vh3hro817os4" path="res://scripts/camera_2d.gd" id="2_rvslj"]
+[ext_resource type="Script" uid="uid://c2dqb00kpk75l" path="res://scripts/edge_marker.gd" id="4_rarhs"]
+[ext_resource type="AudioStream" uid="uid://b8al5i0n4nb6s" path="res://audio/sfx/ui/alarm_pulse.ogg" id="5_c01mt"]
+[ext_resource type="Script" uid="uid://bh1t28rlxkiev" path="res://scripts/game_music.gd" id="6_c01mt"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rvslj"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_0bbpv")
+
+[node name="SpaceBG" type="Polygon2D" parent="."]
+z_index = -1000
+material = SubResource("CanvasItemMaterial_rvslj")
+color = Color(0.0431373, 0.0627451, 0.12549, 1)
+polygon = PackedVector2Array(-4000, -4000, 4000, -4000, 4000, 4000, -4000, 4000)
+uv = PackedVector2Array(19.9997, -24, 23.9997, -65.3333, 124, -64.6667, 137.333, -13.3333)
 
 [node name="Ship" parent="." instance=ExtResource("1_elqb8")]
 
@@ -11,3 +25,134 @@
 zoom = Vector2(0.8, 0.8)
 limit_smoothed = true
 script = ExtResource("2_rvslj")
+
+[node name="MeteorTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="HUDRoot" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" type="Control" parent="HUD/HUDRoot"]
+layout_mode = 1
+anchor_left = 0.03
+anchor_right = 0.1
+offset_top = 16.0
+offset_right = 320.0
+offset_bottom = 22.0
+
+[node name="Track" type="ColorRect" parent="HUD/HUDRoot/HealthBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.282353)
+
+[node name="Fill" type="ColorRect" parent="HUD/HUDRoot/HealthBar"]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.654902, 0.878431, 1, 1)
+
+[node name="EdgeTop" type="ColorRect" parent="HUD/HUDRoot"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+mouse_filter = 2
+color = Color(1, 0.25098, 0.313726, 1)
+
+[node name="EdgeBottom" type="ColorRect" parent="HUD/HUDRoot"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+color = Color(1, 0.25098, 0.313726, 1)
+
+[node name="EdgeLeft" type="ColorRect" parent="HUD/HUDRoot"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0.25098, 0.313726, 1)
+
+[node name="EdgeRight" type="ColorRect" parent="HUD/HUDRoot"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0.25098, 0.313726, 1)
+
+[node name="OOBLabel" type="Label" parent="HUD/HUDRoot"]
+modulate = Color(1, 0.25098, 0.313726, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.5
+offset_top = -24.5
+offset_right = 84.5
+offset_bottom = 24.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 35
+text = "OOBLabel"
+horizontal_alignment = 1
+
+[node name="EdgeMarker" type="Control" parent="HUD/HUDRoot"]
+z_index = 100
+custom_minimum_size = Vector2(24, 24)
+anchors_preset = 0
+offset_right = 50.0
+offset_bottom = 10.0
+mouse_filter = 2
+script = ExtResource("4_rarhs")
+color = Color(0.662452, 0.662452, 0.662452, 0.611765)
+
+[node name="AlarmBeep" type="AudioStreamPlayer2D" parent="HUD/HUDRoot"]
+stream = ExtResource("5_c01mt")
+volume_db = -8.0
+bus = &"UI"
+
+[node name="GameMusic" type="Node" parent="."]
+script = ExtResource("6_c01mt")
+bpm = 110.0
+fade_beats = 8.0
+target_db = -20.0
+bars_min = 12
+bars_max = 28
+fade_out_beats = 8.0
+
+[node name="TrackA" type="AudioStreamPlayer" parent="GameMusic"]
+volume_db = -60.0
+bus = &"Music"
+
+[node name="TrackB" type="AudioStreamPlayer" parent="GameMusic"]
+volume_db = -60.0
+bus = &"Music"

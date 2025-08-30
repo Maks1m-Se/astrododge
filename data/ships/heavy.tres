@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ShipConfig" load_steps=2 format=3 uid="uid://blm7e5vnvlpcc"]
+
+[ext_resource type="Script" uid="uid://cx36bvamevyju" path="res://scripts/data/ship_config.gd" id="1_eng8s"]
+
+[resource]
+script = ExtResource("1_eng8s")
+id = "heavy"
+display_name = "Heavy"
+description = "Small, agile, low health."
+max_health = 160.0
+mass = 3.5
+scale = 2.0
+thrust_force = 1200.0
+torque_strength = 2000.0
+linear_damp = 0.1
+angular_damp = 0.1
+sfx_pitch = 0.7
+vfx_brightness = 2.0
+metadata/_custom_type_script = "uid://cx36bvamevyju"

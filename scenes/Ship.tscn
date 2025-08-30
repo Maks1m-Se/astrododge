@@ -1,17 +1,214 @@
-[gd_scene load_steps=2 format=3 uid="uid://cve26v466e6d8"]
+[gd_scene load_steps=20 format=3 uid="uid://cve26v466e6d8"]
 
 [ext_resource type="Script" uid="uid://dm1ha4so0km42" path="res://scripts/ship.gd" id="1_ai6ab"]
+[ext_resource type="Texture2D" uid="uid://vapg561txg3y" path="res://vfx/thruster_dot.tres" id="2_gjfe0"]
+[ext_resource type="Resource" uid="uid://dbtrytvyuavfh" path="res://data/ships/scout.tres" id="2_ky8oh"]
+[ext_resource type="AudioStream" uid="uid://dh3vbp22t1gtd" path="res://audio/sfx/ship/thruster_loop.ogg" id="3_qq457"]
 
-[node name="Ship" type="RigidBody2D"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qq457"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_ky8oh"]
+offsets = PackedFloat32Array(0, 0.217778, 0.386667, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.654902, 0.878431, 1, 1, 0.654902, 0.878431, 1, 0.666667, 0.654902, 0.878431, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_maf36"]
+gradient = SubResource("Gradient_ky8oh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_slbyd"]
+lifetime_randomness = 0.08
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(-20, 0, 0)
+angle_min = 1.07288e-05
+angle_max = 1.07288e-05
+direction = Vector3(-1, 0, 0)
+spread = 18.0
+initial_velocity_min = 112.59
+initial_velocity_max = 162.59
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = -1.60933e-05
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = -2.23517e-06
+tangential_accel_max = -2.23517e-06
+damping_min = 35.0
+damping_max = 50.0
+color_ramp = SubResource("GradientTexture1D_maf36")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gjfe0"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_v8v1k"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qq457"]
+gradient = SubResource("Gradient_v8v1k")
+width = 3
+height = 6
+fill = 1
+fill_from = Vector2(0.476712, 0.221918)
+fill_to = Vector2(0.482192, 0.526027)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ky8oh"]
+lifetime_randomness = 0.08
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(-9, -3, 0)
+angle_min = 1.07288e-05
+angle_max = 1.07288e-05
+direction = Vector3(0, -1, 0)
+spread = 5.0
+initial_velocity_min = 70.0
+initial_velocity_max = 120.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = -1.60933e-05
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = -2.23517e-06
+tangential_accel_max = -2.23517e-06
+damping_min = 35.0
+damping_max = 50.0
+color_ramp = SubResource("GradientTexture1D_maf36")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ky8oh"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_maf36"]
+gradient = SubResource("Gradient_v8v1k")
+width = 3
+height = 6
+fill = 1
+fill_from = Vector2(0.465753, 0.758904)
+fill_to = Vector2(0.460274, 0.449315)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7ty2q"]
+lifetime_randomness = 0.08
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(-9, 3, 0)
+angle_min = 1.07288e-05
+angle_max = 1.07288e-05
+direction = Vector3(0, 1, 0)
+spread = 5.0
+initial_velocity_min = 70.0
+initial_velocity_max = 120.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = -1.60933e-05
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = -2.23517e-06
+tangential_accel_max = -2.23517e-06
+damping_min = 35.0
+damping_max = 50.0
+color_ramp = SubResource("GradientTexture1D_maf36")
+
+[sub_resource type="Gradient" id="Gradient_ai6ab"]
+offsets = PackedFloat32Array(0, 0.192982, 0.491228, 1)
+colors = PackedColorArray(1, 1, 1, 0.929412, 1, 1, 1, 0.411765, 1, 1, 1, 0.184584, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gjfe0"]
+gradient = SubResource("Gradient_ai6ab")
+width = 800
+height = 800
+fill = 1
+fill_from = Vector2(0.512195, 0.512195)
+fill_to = Vector2(0, 0.512195)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ky8oh"]
+gradient = SubResource("Gradient_ai6ab")
+width = 600
+height = 600
+fill = 1
+fill_from = Vector2(0.512195, 0.512195)
+fill_to = Vector2(0.249315, 0.512329)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_slbyd"]
+gradient = SubResource("Gradient_ai6ab")
+width = 600
+height = 600
+fill = 1
+fill_from = Vector2(0.512195, 0.512195)
+fill_to = Vector2(0.249315, 0.512329)
+
+[node name="Ship" type="RigidBody2D" groups=["player"]]
+collision_mask = 2
 continuous_cd = 1
 linear_damp = 0.1
+angular_damp_mode = 1
 angular_damp = 0.1
 script = ExtResource("1_ai6ab")
+config = ExtResource("2_ky8oh")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
+[node name="GFX" type="Node2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="GFX"]
 color = Color(0.654902, 0.878431, 1, 1)
 polygon = PackedVector2Array(16, 0, -10, -8, -10, 8)
 uv = PackedVector2Array(785.284, 181.712, 950.328, 212.769, 797.707, 284.643)
 
+[node name="VFX" type="Node2D" parent="GFX"]
+
+[node name="MainThruster" type="GPUParticles2D" parent="GFX/VFX"]
+material = SubResource("CanvasItemMaterial_qq457")
+amount = 35
+texture = ExtResource("2_gjfe0")
+lifetime = 0.18
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_slbyd")
+
+[node name="LeftThruster" type="GPUParticles2D" parent="GFX/VFX"]
+material = SubResource("CanvasItemMaterial_gjfe0")
+amount = 35
+texture = SubResource("GradientTexture2D_qq457")
+lifetime = 0.18
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_ky8oh")
+
+[node name="RightThruster" type="GPUParticles2D" parent="GFX/VFX"]
+material = SubResource("CanvasItemMaterial_ky8oh")
+amount = 35
+texture = SubResource("GradientTexture2D_maf36")
+lifetime = 0.18
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_7ty2q")
+
+[node name="MainLight" type="PointLight2D" parent="GFX/VFX"]
+position = Vector2(-12, 0)
+scale = Vector2(0.88, 1)
+color = Color(0.654902, 0.878431, 1, 1)
+energy = 0.0
+texture = SubResource("GradientTexture2D_gjfe0")
+
+[node name="LeftLight" type="PointLight2D" parent="GFX/VFX"]
+position = Vector2(-12, 0)
+scale = Vector2(0.88, 1)
+color = Color(0.654902, 0.878431, 1, 1)
+energy = 0.0
+texture = SubResource("GradientTexture2D_ky8oh")
+offset = Vector2(0, -10)
+
+[node name="RightLight" type="PointLight2D" parent="GFX/VFX"]
+position = Vector2(-12, 0)
+scale = Vector2(0.88, 1)
+color = Color(0.654902, 0.878431, 1, 1)
+energy = 0.0
+texture = SubResource("GradientTexture2D_slbyd")
+offset = Vector2(0, 10)
+
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(16, 0, -10, 8, -10, -8)
+
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="ThrusterMain" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("3_qq457")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="ThrusterLeft" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("3_qq457")
+volume_db = -14.0
+bus = &"SFX"
+
+[node name="ThrusterRight" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("3_qq457")
+volume_db = -14.0
+bus = &"SFX"
